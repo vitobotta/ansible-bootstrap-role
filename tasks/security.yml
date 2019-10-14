@@ -1,0 +1,33 @@
+---
+- name: Copy notification script
+  template:
+    src: notify-updates.sh
+    dest: /usr/bin/notify-updates.sh
+    mode: +x
+
+- name: Schedule updates notification
+  cron:
+    name: "Updates notification"
+    minute: "0"
+    job: "/usr/bin/notify-updates.sh"
+
+- name: Ensure cockpit is not installed
+  package:
+    name: cockpit
+    state: absent
+
+- name: Install dnf-automatic
+  package:
+    name: dnf-automatic
+    state: present
+
+- name: Enable automatic security updates
+  service:
+    name: dnf-automatic.timer
+    state: started
+    enabled: yes
+
+- name: Ensure cockpit is not installed
+  package:
+    name: cockpit
+    state: absent

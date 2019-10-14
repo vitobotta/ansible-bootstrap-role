@@ -1,0 +1,6 @@
+---
+- name: Set hostname
+  hostname: name={{ server_name }}
+
+- name: Update /etc/hosts for hostname
+  lineinfile: dest=/etc/hosts line="127.0.0.1 {{ server_name }}" state=present

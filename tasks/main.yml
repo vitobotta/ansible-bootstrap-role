@@ -1,0 +1,16 @@
+---
+- import_tasks: hostname.yml
+  tags: bootstrap-hostname
+
+- import_tasks: update_system.yml
+  tags: bootstrap-update-system
+
+- import_tasks: essential-packages.yml
+  tags: bootstrap-packages
+
+- import_tasks: timezone.yml
+  tags: bootstrap-timezone
+
+- import_tasks: security.yml
+  tags: bootstrap-security
+

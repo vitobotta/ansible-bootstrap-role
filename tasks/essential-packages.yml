@@ -1,0 +1,39 @@
+---
+- name: Install epel-release
+  yum:
+    name: epel-release
+    state: present
+
+- name: Install essential packages
+  yum:
+    name: ['yum-utils', 'net-tools', 'whois', 'htop', 'lvm2', 'gdisk', 'lsof', 'python2-pip', 'net-tools', 'gcc', "chrony", 'cronie', 'cronie-anacron', 'bind-utils', 'vim', 'wget', 'curl', 'screen']
+    state: present
+
+- name: Install iSCSI initiation for some Kubernetes storage solutions
+  yum:
+    name: iscsi-initiator-utils
+    state: present
+
+- name: Ensure iscsid is running
+  service:
+    name: iscsid
+    state: started
+    enabled: yes
+
+- name: Add the iscsi_tcp module
+  modprobe:
+    name: iscsi_tcp
+    state: present
+
+- name: Ensure cron is running
+  service:
+    name: crond
+    state: started
+    enabled: yes
+
+- name: Ensure chronyd is running
+  service:
+    name: chronyd
+    state: started
+    enabled: yes
+
